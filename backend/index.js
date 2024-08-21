@@ -54,6 +54,66 @@ app.get('/movies', async (request, response) => {
     }
 });
 
+//Get One Movies from Database by id
+app.get('/movies/:id', async (request, response) => {
+    try{
+        const { id } = request.params;
+
+        const movie = await Movie.findById(id);
+
+        return response.status(200).json(movie);
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+// Route to Update a Movie
+app.put('/movies/:id', async (request, response) => {
+    try{
+        if(
+            !request.body.title ||
+            !request.body.director ||
+            !request.body.publishYear
+           ) {
+               return response.status(400).send({
+                   message: 'Send all required fields: title, director, pusblishYear'
+               });
+           }
+
+           const { id } = request.params;
+           const result = await Movie.findByIdAndUpdate(id, request.body);
+
+           if(!result){
+             return response.status(404).json({message: 'Movie not found'})
+           }
+
+           return response.status(200).json({message: 'Movie successfully updated'})
+
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+// Route to Update a Movie
+app.delete('/movies/:id', async (request, response) => {
+    try{
+        const { id } = request.params;
+        const result = await Movie.findByIdAndDelete(id);
+
+        if(!result){
+            return response.status(404).json({message: 'Movie not found'})
+          }
+
+          return response.status(200).json({message: 'Movie successfully Deleted'})
+
+    }catch(error){
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
 mongoose
     .connect(mongoURL)
     .then(() => {
