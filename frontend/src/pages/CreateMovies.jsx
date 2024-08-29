@@ -3,6 +3,7 @@ import BackButton from '../components/BackButton';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const CreateMovies = () => {
   const [title, setTitle] = useState('');
@@ -10,6 +11,7 @@ const CreateMovies = () => {
   const [publishYear, setPublishYear] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
   const handleSaveMovie = () => {
     const data = {
       title,
@@ -21,11 +23,13 @@ const CreateMovies = () => {
       .post('http://localhost:5555/movies', data)
       .then(() => {
         setLoading(false);
+        enqueueSnackbar('Movie Created Successfully', {variant: 'success'});
         navigate('/');
       })
       .catch((error) => {
         setLoading(false);
-        alert('An error has occured');
+        //alert('An error has occured');
+        enqueueSnackbar('Error', {variant: 'error'});
         console.log(error);
       });
   };
