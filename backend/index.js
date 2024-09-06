@@ -3,6 +3,7 @@ import {PORT, mongoURL} from "./config.js"
 import mongoose from 'mongoose';
 import {Movie} from './models/movieModel.js';
 import moviesRoute from './routes/moviesRoute.js';
+import usersRoute from './routes/usersRoute.js'
 import cors from 'cors';
 
 const app = express();
@@ -28,6 +29,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/movies', moviesRoute);
+app.use('/users', usersRoute);
 
 mongoose
     .connect(mongoURL)
