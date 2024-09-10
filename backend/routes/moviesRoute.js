@@ -1,5 +1,9 @@
 import express from 'express';
 import { Movie } from '../models/movieModel.js';
+import jwt from 'jsonwebtoken'
+import token from './usersRoute.js';
+import * as dotenv from 'dotenv';
+dotenv.config({ path: '../.env' });
 
 const router = express.Router();
 
@@ -31,8 +35,20 @@ router.post("/", async (request, response) => {
     }
 });
 
+const verifyUser = (request, response, next) =>{
+    const token = request.cookies.token;
+    if(!token){
+        return response.json("No token available")
+    } else{
+        jwt.verify(token, process.env.SECRETjwt, (err, decoded) => {
+            if(err) return response.json("Wrong Token");
+            next();
+        })
+    }
+}
+
 //Get All Movies from Database
-router.get('/', async (request, response) => {
+router.get('/', verifyUser, async (request, response) => {
     try{
         const movies = await Movie.find({});
 

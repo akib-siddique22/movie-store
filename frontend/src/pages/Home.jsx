@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
@@ -12,11 +12,18 @@ const Home = () => {
     const [movies, setMovies] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showType, setShowType] = useState('table');
+    const navigate = useNavigate();
     useEffect(() => {
+        axios.defaults.withCredentials = true;
         setLoading(true);
+        axios.get()
+
         axios
             .get('http://localhost:5555/movies')
             .then((response) => {
+                if(response.data === "No token available"){
+                    navigate('/login')
+                }
                 setMovies(response.data.data);
                 setLoading(false);
             })

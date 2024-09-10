@@ -12,6 +12,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
+  axios.defaults.withCredentials = true;
   const Submission = (e) => {
     e.preventDefault()
     const data = {

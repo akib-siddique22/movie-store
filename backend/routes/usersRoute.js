@@ -1,5 +1,9 @@
 import express from 'express';
 import { User } from '../models/userModel.js';
+import * as dotenv from 'dotenv';
+dotenv.config({ path: '../.env' });
+import jwt from 'jsonwebtoken'
+import cookieParser from 'cookie-parser'
 
 const router = express.Router();
 
@@ -44,6 +48,8 @@ router.post('/login', async (request, response) => {
         const user = await User.findOne({ username: usern })
         if (user) {
             if (user.password === pass) {
+                const token = jwt.sign({_id: user._id}, process.env.SECRETjwt, { expiresIn: '1d'})
+                response.cookie("token", token);
                 response.json("Successfully Logged In")
             } else {
                 response.json("Incorrect Details")
