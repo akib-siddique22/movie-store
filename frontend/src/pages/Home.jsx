@@ -22,7 +22,7 @@ const Home = () => {
             .get('http://localhost:5555/movies')
             .then((response) => {
                 if(response.data === "No token available"){
-                    navigate('/login')
+                    navigate('/signup')
                 }
                 setMovies(response.data.data);
                 setLoading(false);
