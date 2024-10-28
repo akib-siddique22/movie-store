@@ -32,6 +32,10 @@ const Home = () => {
                 setLoading(false);
             });
     }, []);
+    const SignOut = () => {
+        document.cookie = 'token=; Max-Age=-1; path=/';
+        navigate('/signup');
+    };
     return (
         <div className='p-4'>
             <div className = 'flex justify-center items-center gap-x-4'>
@@ -56,6 +60,13 @@ const Home = () => {
                 </Link>
             </div>
             {loading ?  <Spinner /> : showType === 'table' ? (<MoviesTable movies={movies} />): (<MoviesCard movies={movies}/>)}
+
+            <button
+                className='bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded absolute top-4 right-4'
+                onClick={SignOut}
+            >
+                Sign Out
+            </button>
         </div>
     )
 }
