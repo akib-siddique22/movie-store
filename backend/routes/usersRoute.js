@@ -1,5 +1,6 @@
 import express from 'express';
 import { User } from '../models/userModel.js';
+import { Movie } from '../models/movieModel.js';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '../.env' });
 import jwt from 'jsonwebtoken'
@@ -62,5 +63,35 @@ router.post('/login', async (request, response) => {
         response.status(500).send({ message: error.message });
     }
 });
+
+//Add Movie to Cart  
+router.put('/addcart', async (request, response) => {
+    try {
+        if (
+            !request.body.userID ||
+            !request.body.movieID
+        ) {
+            return response.status(400).send({
+                message: 'Need valid user and movie'
+            });
+        }
+        const userID = request.body.userID
+        const movieID = request.body.movieID
+        const user = await User.findById(userID);
+        if (user) {
+            const result = await User.findByIdAndUpdate(userID, { $push: { cart: request.body.movieID } });
+
+            if(!result){
+              return response.status(404).json({message: 'User not found'})
+            }
+ 
+            return response.status(200).json({message: 'Cart successfully updated'})
+        } 
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
 
 export default router
