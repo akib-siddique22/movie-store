@@ -4,8 +4,10 @@ import {BiUserCircle, BiShow} from 'react-icons/bi';
 import {AiOutlineEdit} from 'react-icons/ai';
 import {BsInfoCircle} from 'react-icons/bs';
 import {MdOutlineDelete} from 'react-icons/md';
+import { BsCartPlus } from "react-icons/bs";
 import { useState } from "react";
 import MovieModal from "./MovieModal";
+import AddCartButton from '../AddCartButton';
 
 const MovieSingleCard = ({movie}) => {
   const [showModal, setShowModal] = useState(false);
@@ -41,6 +43,7 @@ const MovieSingleCard = ({movie}) => {
       <Link to={`/movies/delete/${movie._id}`}>
         <MdOutlineDelete className="text-2xl text-red-600 hover:text-black"/>
       </Link>
+      <AddCartButton value={movie._id}/>
     </div>
     {
       showModal && (
