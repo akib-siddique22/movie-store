@@ -3,7 +3,7 @@ import { User } from '../models/userModel.js';
 import { Movie } from '../models/movieModel.js';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '../.env' });
-import jwt from 'jsonwebtoken'
+import jwt, { decode } from 'jsonwebtoken'
 import cookieParser from 'cookie-parser'
 
 const router = express.Router();
@@ -68,15 +68,15 @@ router.post('/login', async (request, response) => {
 router.put('/addcart', async (request, response) => {
     try {
         if (
-            !request.body.userID ||
+            !request.body.Token ||
             !request.body.movieID
         ) {
             return response.status(400).send({
                 message: 'Need valid user and movie'
             });
         }
-        const userID = request.body.userID
-        const movieID = request.body.movieID
+        const decodedToken = jwt.decode(request.body.Token)
+        const userID = decodedToken._id
         const user = await User.findById(userID);
         if (user) {
             const result = await User.findByIdAndUpdate(userID, { $push: { cart: request.body.movieID } });
