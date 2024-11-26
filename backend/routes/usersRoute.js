@@ -96,10 +96,9 @@ router.put('/addcart', async (request, response) => {
 //Get Movies from Cart
 router.get('/getcart', async (request, response) => {
     try{
-        //const decodedToken = jwt.decode(request.body.Token)
-        //const userID = decodedToken._id
-        //const user = await User.findById(userID);
-        const user = await User.findById('673e5640f8a8edf445c20391');
+        const decodedToken = jwt.decode(request.body.Token)
+        const userID = decodedToken._id
+        const user = await User.findById(userID);
 
         return response.status(200).json(user['cart']);
     }catch(error){
