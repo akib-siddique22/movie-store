@@ -8,6 +8,7 @@ import EditMovie from './pages/EditMovie';
 import DeleteMovie from './pages/DeleteMovie';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import Checkout from './pages/Checkout';
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
       <Route path='/movies/details/:id' element={<ShowMovie />} />
       <Route path='/movies/edit/:id' element={<EditMovie />} />
       <Route path='/movies/delete/:id' element={<DeleteMovie />} />
+      <Route path='/checkout' element={<Checkout/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/signup' element={<SignUp/>} />
     </Routes>
