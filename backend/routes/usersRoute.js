@@ -96,7 +96,12 @@ router.put('/addcart', async (request, response) => {
 //Get Movies from Cart
 router.get('/getcart', async (request, response) => {
     try{
-        const decodedToken = jwt.decode(request.body.Token)
+        const token = request.query.Token;
+        
+        if (!token) {
+            return response.status(400).json({ message: 'Token is missing' });
+        }
+        const decodedToken = jwt.decode(token)
         const userID = decodedToken._id
         const user = await User.findById(userID);
 
