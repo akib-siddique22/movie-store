@@ -13,7 +13,8 @@ router.post("/", async (request, response) => {
         if(
          !request.body.title ||
          !request.body.director ||
-         !request.body.publishYear
+         !request.body.publishYear ||
+         !request.body.price
         ) {
             return response.status(400).send({
                 message: 'Send all required fields: title, director, pusblishYear'
@@ -24,6 +25,7 @@ router.post("/", async (request, response) => {
             director: request.body.director,
             publishYear: request.body.publishYear,
             actors: request.body.actors,
+            price: request.body.price,
         };
 
         const movie = await Movie.create(newMovie);
@@ -82,7 +84,8 @@ router.put('/:id', async (request, response) => {
         if(
             !request.body.title ||
             !request.body.director ||
-            !request.body.publishYear
+            !request.body.publishYear ||
+            !request.body.price
            ) {
                return response.status(400).send({
                    message: 'Send all required fields: title, director, pusblishYear'

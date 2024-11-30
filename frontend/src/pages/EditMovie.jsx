@@ -10,6 +10,7 @@ const EditMovies = () => {
   const [title, setTitle] = useState('');
   const [director, setDirector] = useState('');
   const [publishYear, setPublishYear] = useState('');
+  const [price, setPrice] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {id} = useParams();
@@ -21,6 +22,7 @@ const EditMovies = () => {
       .then((response) => {
         setDirector(response.data.director);
         setPublishYear(response.data.publishYear);
+        setPrice(response.data.price);
         setTitle(response.data.title);
         setLoading(false);
       }).catch((error) => {
@@ -34,6 +36,7 @@ const EditMovies = () => {
       title,
       director,
       publishYear,
+      price,
     };
     setLoading(true);
     axios
@@ -81,6 +84,15 @@ const EditMovies = () => {
             type = 'text'
             value = {publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
+            className = 'border-2 border-gray-500 px-4 py-2 w-full'
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Publish Year</label>
+          <input
+            type = 'text'
+            value = {price}
+            onChange={(e) => setPrice(e.target.value)}
             className = 'border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>

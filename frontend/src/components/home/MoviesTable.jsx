@@ -15,6 +15,8 @@ const MoviesTable = ({movies}) => {
                                 Director</th>
                             <th className = 'border border-slate-600 rounded-md max-md:hidden'>
                                 Publish Year</th>
+                            <th className = 'border border-slate-600 rounded-md max-md:hidden'>
+                                Price</th>
                             <th className = 'border border-slate-600 rounded-md'>Operations</th>
                         </tr>
                     </thead>
@@ -32,6 +34,9 @@ const MoviesTable = ({movies}) => {
                                 </td>
                                 <td className='border border-slate-700 rounded-md text-center max-md:hidden'>
                                     {movie.publishYear}
+                                </td>
+                                <td className='border border-slate-700 rounded-md text-center max-md:hidden'>
+                                    {movie.price}
                                 </td>
                                 <td className='border border-slate-700 rounded-md text-center'>
                                     <div className = 'flex justify-center gap-x-4'>

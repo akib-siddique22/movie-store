@@ -9,6 +9,7 @@ const CreateMovies = () => {
   const [title, setTitle] = useState('');
   const [director, setDirector] = useState('');
   const [publishYear, setPublishYear] = useState('');
+  const [price, setPrice] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -17,6 +18,7 @@ const CreateMovies = () => {
       title,
       director,
       publishYear,
+      price,
     };
     setLoading(true);
     axios
@@ -64,6 +66,15 @@ const CreateMovies = () => {
             type = 'text'
             value = {publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
+            className = 'border-2 border-gray-500 px-4 py-2 w-full'
+          />
+        </div>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Price</label>
+          <input
+            type = 'text'
+            value = {price}
+            onChange={(e) => setPrice(e.target.value)}
             className = 'border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>

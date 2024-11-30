@@ -17,6 +17,10 @@ const movieSchema = mongoose.Schema(
         actors:{
             type: [String],
             required: false,
+        },
+        price:{
+            type: Number,
+            required: true,
         }
 
     },
