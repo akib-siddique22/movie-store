@@ -78,6 +78,29 @@ router.get('/:id', async (request, response) => {
     }
 });
 
+export async function getMovieArray(movieIds) {
+    try {
+        const moviesStats = {};
+        var count = 0
+        for (const id of movieIds) {
+            const movie = await Movie.findById(id);
+            if (movie) {
+                moviesStats[count] = {
+                    id: movie._id,
+                    title: movie.title,
+                    price: movie.price,
+                };
+                count++
+            }
+        }
+
+        return moviesStats;
+    } catch (error) {
+        console.error(error.message);
+        throw new Error('Error while fetching movie stats');
+    }
+}
+
 // Route to Update a Movie
 router.put('/:id', async (request, response) => {
     try{
