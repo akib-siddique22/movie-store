@@ -4,7 +4,7 @@ import { Movie } from '../models/movieModel.js';
 import * as dotenv from 'dotenv';
 dotenv.config({ path: '../.env' });
 import jwt, { decode } from 'jsonwebtoken'
-import cookieParser from 'cookie-parser'
+import { getMovieArray } from './moviesRoute.js'
 
 const router = express.Router();
 
@@ -105,7 +105,11 @@ router.get('/getcart', async (request, response) => {
         const userID = decodedToken._id
         const user = await User.findById(userID);
 
-        return response.status(200).json(user['cart']);
+        const moviesArray = Array.from({ length: user['cart'].length }, (_, index) => user['cart'][index.toString()]);
+        const moviesJson = await getMovieArray(moviesArray)
+        console.log(moviesJson)
+
+        return response.status(200).json(moviesJson);
     }catch(error){
         console.log(error.message);
         response.status(500).send({ message: error.message });
