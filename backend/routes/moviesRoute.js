@@ -81,16 +81,19 @@ router.get('/:id', async (request, response) => {
 export async function getMovieArray(movieIds) {
     try {
         const moviesStats = {};
-        var count = 0
         for (const id of movieIds) {
             const movie = await Movie.findById(id);
             if (movie) {
-                moviesStats[count] = {
-                    id: movie._id,
-                    title: movie.title,
-                    price: movie.price,
-                };
-                count++
+                if (moviesStats[id]) {
+                    moviesStats[id].count++;
+                } else {
+                    moviesStats[id] = {
+                        id: movie._id,
+                        title: movie.title,
+                        price: movie.price,
+                        count: 1 // Initialize count to 1 for the first occurrence
+                    };
+                }
             }
         }
 
@@ -111,7 +114,7 @@ router.put('/:id', async (request, response) => {
             !request.body.price
            ) {
                return response.status(400).send({
-                   message: 'Send all required fields: title, director, pusblishYear'
+                   message: 'Send all required fields: title, director, publishYear'
                });
            }
 
