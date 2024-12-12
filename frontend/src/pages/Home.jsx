@@ -4,6 +4,7 @@ import Spinner from '../components/Spinner';
 import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
+import { BsCartFill } from "react-icons/bs";
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import MoviesCard from '../components/home/MoviesCard';
 import MoviesTable from '../components/home/MoviesTable';
@@ -55,9 +56,14 @@ const Home = () => {
             
             <div className='flex justify-between items-center'>
                 <h1 className='text-3xl my-8'>Movies List</h1>
-                <Link to='/movies/create'>
-                    <MdOutlineAddBox className='text-sky-800 text-4xl' />
-                </Link>
+                <div className='flex space-x-2'>
+                    <Link to='/movies/create' className='text-sky-800 text-4xl'>
+                    <MdOutlineAddBox />
+                    </Link>
+                    <Link to='/checkout' className='text-green-600 text-3xl'>
+                    <BsCartFill />
+                    </Link>
+                </div>
             </div>
             {loading ?  <Spinner /> : showType === 'table' ? (<MoviesTable movies={movies} />): (<MoviesCard movies={movies}/>)}
 
