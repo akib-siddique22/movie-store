@@ -37,36 +37,38 @@ const Checkout = () => {
     }, []);
 
     return (
-        <div>
-            {loading ? (
-                <Spinner />
-            ) : (
-                <div>
-                    <h1>Cart Items</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Item</th>
-                                <th>Quantity</th>
-                                <th>Price</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {cartList.map((item) => (
-                                <tr key={item.id}>
-                                    <td>{item.title}</td>
-                                    <td>{item.count}</td>
-                                    <td>${item.price}</td>
-                                    <td>${item.count * item.price}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            )}
+        <div className="flex justify-center items-center h-screen">
+          {loading ? (
+            <Spinner />
+          ) : (
+            <div style={{ width: '60%' }}>
+              <h1 style={{ textAlign: 'center' }}>Cart</h1>
+              <table style={{ width: '100%' }}>
+                <thead>
+                  <tr>
+                    <th>Movie</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {cartList.map((item, index) => (
+                    <tr key={item.id} style={{ background: index % 2 === 0 ? '#f2f2f2' : 'white' }}>
+                      <td style={{ textAlign: 'center', padding: '8px' }}>
+                        {item.title}
+                      </td>
+                      <td style={{ padding: '8px' }}>{item.count}</td>
+                      <td style={{ padding: '8px' }}>${item.price}</td>
+                      <td style={{ padding: '8px' }}>${item.count * item.price}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
-    );
+      );
 }
 
 export default Checkout;
